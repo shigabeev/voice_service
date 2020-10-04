@@ -1,3 +1,5 @@
+import io
+
 import numpy as np
 from pydub import AudioSegment
 from pydub.playback import play
@@ -17,10 +19,10 @@ morse = AudioSegment.from_wav("data/Morse.wav") # Sound that means recording is 
 # TODO: The sounds should be recorded and played on a frontend
 
 def play_audio(sr, wav):
-    # I bet you've seen this duct-tape before
     wav = np.multiply(wav, (2**15)).astype(np.int16)
-    wavfile.write("output.wav", rate=sr, data=wav)
-    sound = AudioSegment.from_wav('output.wav')
+    pcm = io.BytesIO()
+    wavfile.write(pcm, rate=sr, data=wav)
+    sound = AudioSegment.from_wav(pcm)
     play(sound)
 
 
@@ -30,6 +32,8 @@ if __name__ == "__main__":
     for _ in range(10):
         play(tink)
         user_input = recognize(7) # 7 - is a duration of recorded sound
+        if not user_input:
+            user_input = "*incomprehensible*"
         play(morse)
 
         print(f"you: {user_input}")

@@ -1,0 +1,49 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Try speech synthesis API</h1>
+    <div class="input-group">
+        <textarea id="user_input_tts" class="form-control col-6" aria-label="With textarea" rows="4" cols="50", style='resize:none'>
+    This is your awesome text, that would be pronounced through hour text-to-speech system.
+        </textarea>
+    </div>
+
+
+    <br>
+
+    <button type="button" class="btn btn-primary", onclick="tts_backend_call()">Speak!</button>
+    <audio controls id="myAudioElement", type='audio/wav'> </audio>
+</div>
+<script>
+var tts_backend_call = function () {
+    var xhr = new XMLHttpRequest();
+    var audio = document.getElementById('myAudioElement') || new Audio();
+    xhr.responseType = 'blob';
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+            var blob = new Blob([xhr.response], {type: 'audio/wav'});
+            var objectUrl = URL.createObjectURL(blob);
+            audio.src = objectUrl;
+            audio.onload = function(evt) {
+                alert('loaded');
+                URL.revokeObjectURL(objectUrl);
+            };
+        }
+    };
+    xhr.open('POST', "http://127.0.0.1:5000/tts", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        "text": document.getElementById("user_input_tts").value
+    }));
+}
+tts_backend_call();
+</script>
+
+</body>
+</html>
