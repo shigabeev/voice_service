@@ -1,13 +1,18 @@
-# Easy voice
-To install
+# Backend
+Installation
+```
+pip install -r requirements.txt
+```
 
-    pip install -r requirements.txt
-    curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.8.1/deepspeech-0.8.1-models.pbmm
-    mv deepspeech-0.8.1-models.pbmm data/deepspeech-0.8.1-models.pbmm
-    
 To run
-    
-    export LC_ALL=en_US.UTF-8
-    export LANG=en_US.UTF-8
-    python src/main.py 
-   
+```   
+export FLASK_APP=src/backend.py
+flask run --host=0.0.0.0
+```
+
+## Usage
+Send POST to backend/tts:5000 with your text in json:
+```
+{"text":"Your text goes here"}
+```
+You can find code samples in ```web/plugin.html```
