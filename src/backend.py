@@ -21,7 +21,9 @@ def handle_tts():
     text = content.get('text')
     write_result(text) # save request data
     if type(text) != str:
-        return "Wrong data type", 400
+        return "Check the text.", 400
+    if len(text) > 1000:
+        return "Input length is too long.", 400
     sr, wav = pronounce()
     wav = np.multiply(wav, (2 ** 15)).astype(np.int16)
     pcm = io.BytesIO()
