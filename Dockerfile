@@ -6,7 +6,8 @@ MAINTAINER @NetBUG
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3-numpy \
-    python3-matplotlib
+    python3-matplotlib \
+    python3-soundfile
 
 RUN mkdir -p /apps/voice-service
 
@@ -16,4 +17,4 @@ RUN pip3 install -r /apps/voice-service/requirements.txt
 
 EXPOSE 4000
 
-CMD [ "python3", "/apps/voice-service/web/backend.py" ]
+CMD [ "python3", "/apps/voice-service/src/backend.py" ]
