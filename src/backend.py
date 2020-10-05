@@ -37,5 +37,5 @@ def handle_tts():
         print(e.message, e.args)
         return "Unexpected error occured. Message us to get a stable version of a product.", 500
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=4000)
