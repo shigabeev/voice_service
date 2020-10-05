@@ -36,7 +36,7 @@ var tts_backend_call = function () {
             };
         }
     };
-    xhr.open('POST', "http://127.0.0.1:5000/tts", true);
+    xhr.open('POST', "http://127.0.0.1:4000/tts", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
         "text": document.getElementById("user_input_tts").value
