@@ -36,3 +36,6 @@ def handle_tts():
     except Exception as e:
         print(e.message, e.args)
         return "Unexpected error occured. Message us to get a stable version of a product.", 500
+
+if __name__ == "__main__":
+    app.run()
