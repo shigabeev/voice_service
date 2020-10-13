@@ -1,6 +1,6 @@
 numpy
 matplotlib
-torch==1.6.0
+torch
 espnet==0.9.4
 parallel_wavegan==0.4.6
 flask

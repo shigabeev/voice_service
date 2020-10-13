@@ -11,6 +11,9 @@ from utils import write_result
 app = Flask(__name__)
 CORS(app)
 
+print('imports are successful. Running TTS backend')
+
+
 @app.route('/tts', methods=['GET', 'POST'])
 def handle_tts():
     """
@@ -25,7 +28,7 @@ def handle_tts():
             return "Check the text.", 400
         if len(text) > 1000:
             return "Input length is too long.", 400
-        sr, wav = pronounce()
+        sr, wav = pronounce(text)
         wav = np.multiply(wav, (2 ** 15)).astype(np.int16)
         pcm = io.BytesIO()
         wavfile.write(pcm, rate=sr, data=wav)
@@ -34,8 +37,8 @@ def handle_tts():
                          attachment_filename='output.wav',
                          mimetype='audio/wav')
     except Exception as e:
-        print(e.message, e.args)
+        print(e)
         return "Unexpected error occured. Message us to get a stable version of a product.", 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000)
+    app.run()
