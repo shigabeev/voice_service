@@ -1,5 +1,6 @@
 import io
 import json
+import logging
 
 import numpy as np
 from scipy.io import wavfile
@@ -8,11 +9,10 @@ from flask_cors import CORS
 
 from tts import pronounce # text-to-speech API
 from utils import write_result
+
+
 app = Flask(__name__)
 CORS(app)
-
-print('imports are successful. Running TTS backend')
-
 
 @app.route('/tts', methods=['GET', 'POST'])
 def handle_tts():
@@ -33,12 +33,10 @@ def handle_tts():
         pcm = io.BytesIO()
         wavfile.write(pcm, rate=sr, data=wav)
         return send_file(pcm,
-                         as_attachment=True,
-                         attachment_filename='output.wav',
-                         mimetype='audio/wav')
+                 as_attachment=True,
+                 attachment_filename='output.wav',
+                 mimetype='audio/wav')
     except Exception as e:
         print(e)
         return "Unexpected error occured. Message us to get a stable version of a product.", 500
 
-if __name__ == '__main__':
-    app.run()
