@@ -2,29 +2,39 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Lato', sans-serif !important;
-            color: #204761;
+            font-family: 'Montserrat', sans-serif !important;
+            color: #393E44;
+            background-color: #B5E9DC;
         }
 
         h1 {
-            font-weight: 300;
+            font-weight: bold;
+            text-align: center;
         }
+
+        .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+            background-color: #393E44 !important;
+        }
+
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Try our speech synthesis API</h1>
+    <h1 class="m-5">Try our speech synthesis API</h1>
     <div class="h-auto input-group align-items-center">
-        <textarea id="user_input_tts" class="form-control col-12 col-sm-12 col-xl-9 center" aria-label="With textarea" rows="8", style='resize:none'>
-If you go back a few hundred years, what we take for granted today would seem like magic-being able to talk to people over long distances, to transmit images, flying, accessing vast amounts of data like an oracle. These are all things that would have been considered magic a few hundred years ago.
-        </textarea>
+
+            <textarea id="user_input_tts" class="form-control col-12 center" aria-label="With textarea" rows="8", style='resize:none'>
+If you go back a few hundred years, what we take for granted today would seem like magic. Being able to talk to people over long distances, to transmit images, flying, accessing vast amounts of data like an oracle. These are all things that would have been considered magic a few hundred years ago.
+            </textarea>
+        </center>
     </div>
     <br>
-    <div class="h-25">
-        <button type="button" class="btn btn-primary", onclick="tts_backend_call()">Speak!</button>
-        <audio controls id="myAudioElement", type='audio/wav'> </audio>
+    <div class="d-flex align-items-center justify-content-center">
+        <button type="button" class="m-2 btn btn-lg btn-primary", onclick="tts_backend_call()">Speak!</button>
+        <audio controls class="m-2" id="myAudioElement", type='audio/wav'> </audio>
     </div>
 </div>
 <script>
