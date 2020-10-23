@@ -24,7 +24,7 @@ def handle_tts():
     input: {"text":"English text without normalization",
             "type": "wav|ogg" # TODO
             "batched": 0 # TODO
-            "cached": 0 # TODO
+            "cached": 1 # cached by default
             }
     :return: wav file bytes
     """
@@ -32,6 +32,7 @@ def handle_tts():
         content = request.get_json()
         text = content.get('text')
         audio_type = content.get('type', 'wav')
+        cached_ok = content.get('cached', 1)
 
         text_proc = text.strip()
         fname = f"{hash(text_proc)}.{audio_type}"
@@ -44,7 +45,7 @@ def handle_tts():
             return "Input length is too long. Message us to get a full version of a product.", 400
 
         # Process sound
-        if not fname in os.listdir(CACHEDIR):
+        if not cached_ok or not fname in os.listdir(CACHEDIR):
             sr, wav = pronounce(text)
             wav = np.multiply(wav, (2 ** 15)).astype(np.int16)
             wavfile.write(fpath, rate=sr, data=wav)
